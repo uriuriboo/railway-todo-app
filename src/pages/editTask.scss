@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+.edit-task {
+  width: 1000px;
+  margin: 0 auto;
+  &-form {
+    color: #555555;
+  }
+  &-title, &-detail,&-remain{
+    width: 300px;
+    margin-bottom: 25px;
+  }
+  &-button {
+  background-color: #242F9B;
+  color: #ffffff;
+  width: 80px;
+  height: 40px;
+  border-radius: 5px;
+  }
+}
+
+.delete-task-button {
+  color: #ff3333;
+  border: solid 1px #ff3333;
+  width: 80px;
+  height: 40px;
+  margin: 25px 5px;
+  border-radius: 5px;
+}
+
+.error-message {
+  color: #ff3333;
+}
+
+
+@media screen and (max-width: 768px) {
+  .edit-task {
+    max-width: 768px;
+    text-align: center;
+    &-remain {
+      width: 100%;
+    }
+  }
+  .edit-task-form{
+    width: 768px;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .edit-task {
+    max-width: 320px;
+    text-align: center;
+  }
+  .edit-task-form{
+    width: 320px;
+  }
+}

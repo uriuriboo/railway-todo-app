@@ -3,25 +3,30 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import { url } from "../const";
 import { Header } from "../components/Header";
-import "./newTask.css"
-import { useHistory } from "react-router-dom";
+import "./newTask.scss"
+import { useNavigate } from "react-router-dom";
 
 export const NewTask = () => {
   const [selectListId, setSelectListId] = useState();
   const [lists, setLists] = useState([]);
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
+  const [limit, setLimit] = useState("");
+  const [inputLimit ,] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [cookies] = useCookies();
-  const history = useHistory();
+  const navigate = useNavigate();
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleSelectList = (id) => setSelectListId(id);
+  // const handleLimitChange = (e) => setLimit(e.target.value);
+  const handleInputLimitChange =  (e) => setLimit(e.target.value + ":00Z")
   const onCreateTask = () => {
     const data = {
       title: title,
       detail: detail,
       done: false,
+      limit: limit
     };
 
     axios.post(`${url}/lists/${selectListId}/tasks`, data, {
@@ -30,7 +35,7 @@ export const NewTask = () => {
         }
     })
     .then(() => {
-      history.push("/");
+      navigate("/");
     })
     .catch((err) => {
       setErrorMessage(`タスクの作成に失敗しました。${err}`);
@@ -50,7 +55,7 @@ export const NewTask = () => {
     .catch((err) => {
       setErrorMessage(`リストの取得に失敗しました。${err}`);
     })
-  }, [])
+  }, [cookies.token])
 
   return (
     <div>
@@ -67,6 +72,16 @@ export const NewTask = () => {
           </select><br />
           <label>タイトル</label><br />
           <input type="text" onChange={handleTitleChange} className="new-task-title" /><br />
+          <label>期限日時</label><br />
+          <p>{new Date(limit.slice(0,-1)).toLocaleDateString()}  {new Date(limit.slice(0,-1)).toLocaleTimeString('ja-JP')}</p>
+          <input
+            type="datetime-local"
+            className="edit-task-detail"
+            value={inputLimit}
+            min={new Date()}
+            onChange={handleInputLimitChange}
+          /><br />
+          {/* <input type="text" onChange={handleLimitChange} className="new-task-limit" /><br /> */}
           <label>詳細</label><br />
           <textarea type="text" onChange={handleDetailChange} className="new-task-detail" /><br />
           <button type="button" className="new-task-button" onClick={onCreateTask}>作成</button>

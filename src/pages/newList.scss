@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+.new-list {
+  width: 1000px;
+  margin: 0 auto;
+
+  &-form {
+    color: #555555;
+  }
+
+  &-title {
+    width: 300px;
+    margin-bottom: 25px;
+  }
+  &-button {
+    background-color: #242F9B;
+    color: #ffffff;
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .new-list{
+    width: 768px;
+    text-align: center;
+  }
+
+}
+
+@media screen and (max-width: 320px) {
+  .new-list {
+    max-width: 320px;
+    text-align: center;
+  }
+}
